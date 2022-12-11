@@ -458,7 +458,7 @@ void Paint_DrawChartLine(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
                         UWORD Ymin, UWORD Color, UWORD dencity, DOT_PIXEL Line_width, LINE_STYLE Line_Style)
 {
     if (Xstart > Paint.Width || Ystart > Paint.Height ||
-        Xend > Paint.Width || Yend > Paint.Height || Ymin > Paint.Height) {
+        Xend > Paint.Width || Yend > Paint.Height) {
         Debug("Paint_DrawLine Input exceeds the normal display range\r\n");
         return;
     }

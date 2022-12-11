@@ -28,7 +28,9 @@ void setup()
   Paint_Clear(WHITE);
 
   #if USE_DEBUG
+    // Paint_SetScale(4);
     Paint_Drawx_y();
+    // Paint_SetScale(2);
   #endif
 
   //TXT
