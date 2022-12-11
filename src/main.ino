@@ -6,6 +6,8 @@
 // #define USE_DEBUG 1  // set in platformio.ini
 
 /* Entry point ----------------------------------------------------------------*/
+UBYTE *BlackImage;
+
 void setup()
 { 
   #if USE_DEBUG
@@ -16,13 +18,28 @@ void setup()
 
   EPD_Init();
   EPD_Clear();
-  UBYTE *BlackImage;
 
     UWORD Imagesize = ((WIDTH % 8 == 0)? (WIDTH / 8 ): (WIDTH / 8 + 1)) * HEIGHT;
   if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
       printf("Failed to apply for black memory...\r\n");
       while(1);
   }
+}
+
+/* The main loop -------------------------------------------------------------*/
+void loop()
+{
+  page1();
+  delay(5000);
+  page2();
+  delay(5000);
+  page3();
+  delay(5000);
+}
+
+
+void page1()
+{
   Paint_NewImage(BlackImage, WIDTH, HEIGHT, 0, WHITE);
   Paint_SelectImage(BlackImage);
   Paint_Clear(WHITE);
@@ -63,9 +80,41 @@ void setup()
   EPD_Display_Base(BlackImage);
 }
 
-
-/* The main loop -------------------------------------------------------------*/
-void loop()
+void page2()
 {
-  //
+  Paint_NewImage(BlackImage, WIDTH, HEIGHT, 270, WHITE);
+
+  Paint_SelectImage(BlackImage);
+  Paint_Clear(WHITE);
+  #if USE_DEBUG
+    Paint_Drawx_y();
+  #endif
+  chart(20, 20 , 210, 110, BLACK);
+  EPD_Display_Base(BlackImage);
+}
+
+
+void page3()
+{
+  Paint_NewImage(BlackImage, WIDTH, HEIGHT, 270, WHITE);
+
+  Paint_SelectImage(BlackImage);
+  Paint_Clear(WHITE);
+  #if USE_DEBUG
+    Paint_Drawx_y();
+  #endif
+
+  Paint_DrawString_EN(70,70,"123",&Font24,BLACK,WHITE);
+  Paint_SetRotate(ROTATE_90);
+  Paint_DrawString_EN(70,70,"123",&Font24,BLACK,WHITE);
+
+  Paint_DrawString_EN(20,30,"ABc 1",&Font16,WHITE,BLACK);
+  Paint_SetMirroring(MIRROR_VERTICAL);
+  Paint_DrawString_EN(20,30,"ABc 2",&Font16,WHITE,BLACK);
+  Paint_SetMirroring(MIRROR_HORIZONTAL);
+  Paint_DrawString_EN(20,30,"ABc 3",&Font16,WHITE,BLACK);
+  Paint_SetMirroring(MIRROR_ORIGIN);
+  Paint_DrawString_EN(20,30,"ABc 4",&Font16,WHITE,BLACK);
+
+  EPD_Display_Base(BlackImage);
 }
