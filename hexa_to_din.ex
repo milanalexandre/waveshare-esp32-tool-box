@@ -68,23 +68,23 @@ txt ="""
 0000000000000000
 0000000000000000
 """
-defmodule Convert do
-    def bin_to_hex(txt) do
-        txt |> String.split("\n") |> Enum.filter(& &1!="") |> Enum.map(fn val -> 
-            split(val)
-        end) 
-    end
+# defmodule Convert do
+#     def bin_to_hex(txt) do
+#         txt |> String.split("\n") |> Enum.filter(& &1!="") |> Enum.map(fn val -> 
+#             split(val)
+#         end) 
+#     end
     
-    def split(""), do: [nil]
-    def split(val) do
-        {x1, x2} = String.split_at(val, 8)
-        [String.trim_leading(x1, "0") | split(x2) ] |> Enum.filter(& &1)
-    end
+#     def split(""), do: [nil]
+#     def split(val) do
+#         {x1, x2} = String.split_at(val, 8)
+#         [String.trim_leading(x1, "0") | split(x2) ] |> Enum.filter(& &1)
+#     end
 
-    def bin(""), do: "00"
-    def bin(txt) do
+#     def bin(""), do: "00"
+#     def bin(txt) do
         
-    end
+#     end
 
-end
-Convert.bin_to_hex(txt)
+# end
+# Convert.bin_to_hex(txt)
