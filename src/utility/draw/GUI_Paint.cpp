@@ -525,7 +525,7 @@ parameter:
     Draw_Fill : Whether to fill the inside of the rectangle
 ******************************************************************************/
 void Paint_DrawRectangle(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
-                         UWORD Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill)
+                         UWORD Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill , LINE_STYLE Line_style)
 {
     if (Xstart > Paint.Width || Ystart > Paint.Height ||
         Xend > Paint.Width || Yend > Paint.Height) {
@@ -536,13 +536,13 @@ void Paint_DrawRectangle(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
     if (Draw_Fill) {
         UWORD Ypoint;
         for(Ypoint = Ystart; Ypoint < Yend; Ypoint++) {
-            Paint_DrawLine(Xstart, Ypoint, Xend, Ypoint, Color , Line_width, LINE_STYLE_SOLID);
+            Paint_DrawLine(Xstart, Ypoint, Xend, Ypoint, Color , Line_width, Line_style);
         }
     } else {
-        Paint_DrawLine(Xstart, Ystart, Xend, Ystart, Color, Line_width, LINE_STYLE_SOLID);
-        Paint_DrawLine(Xstart, Ystart, Xstart, Yend, Color, Line_width, LINE_STYLE_SOLID);
-        Paint_DrawLine(Xend, Yend, Xend, Ystart, Color, Line_width, LINE_STYLE_SOLID);
-        Paint_DrawLine(Xend, Yend, Xstart, Yend, Color, Line_width, LINE_STYLE_SOLID);
+        Paint_DrawLine(Xstart, Ystart, Xend, Ystart, Color, Line_width, Line_style);
+        Paint_DrawLine(Xstart, Ystart, Xstart, Yend, Color, Line_width, Line_style);
+        Paint_DrawLine(Xend, Yend, Xend, Ystart, Color, Line_width, Line_style);
+        Paint_DrawLine(Xend, Yend, Xstart, Yend, Color, Line_width, Line_style);
     }
 }
 

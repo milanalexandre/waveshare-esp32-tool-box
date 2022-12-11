@@ -54,6 +54,10 @@ void setup()
   Paint_DrawChartLine(64, 190, 79,  190, 200, BLACK, 4, DOT_PIXEL_1X1, LINE_STYLE_DOTTED );
   Paint_DrawChartLine(79, 190, 128, 175, 200, BLACK, 3, DOT_PIXEL_1X1, LINE_STYLE_DOTTED );
 
+  chart(10, 210 , 100, 290, BLACK);
+
+
+
   EPD_Display_Base(BlackImage);
 }
 
