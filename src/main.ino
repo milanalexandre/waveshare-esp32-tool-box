@@ -1,7 +1,7 @@
 /* Includes  ------------------------------------------------------------------*/
 #include "utility/Debug.h"
 #include "utility/converteur.h"
-#include "GUI_Paint.h"
+#include "utility/draw/GUI_Paint.h"
 
 #define USE_DEBUG 1
 
