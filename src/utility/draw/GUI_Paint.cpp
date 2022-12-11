@@ -487,6 +487,61 @@ void Paint_DrawRectangle(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
 }
 
 /******************************************************************************
+function: Draw a Rounded Rectangle
+parameter:
+    Xstart  ：Rectangular  Starting Xpoint point coordinates
+    Ystart  ：Rectangular  Starting Xpoint point coordinates
+    Xend    ：Rectangular  End point Xpoint coordinate
+    Yend    ：Rectangular  End point Ypoint coordinate
+    Radius  ：circle Radius
+    Color   ：The color of the Rectangular segment
+    Line_width: Line width
+    Line_Style: Solid and dotted lines
+******************************************************************************/
+
+void Paint_DrawRoundedRectangle(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend, UWORD Radius,
+                    UWORD Color, DOT_PIXEL Line_width, LINE_STYLE Line_style)
+{
+        if (Xstart > Paint.Width || Ystart > Paint.Height ||
+        Xend > Paint.Width || Yend > Paint.Height) {
+        Debug("Input exceeds the normal display range\r\n");
+        return;
+    }
+
+    Paint_DrawLine(Xstart  + Radius , Ystart, Xend - Radius, Ystart, Color, Line_width, Line_style);
+    Paint_DrawLine(Xstart, Ystart + Radius, Xstart, Yend - Radius, Color, Line_width, Line_style);
+    Paint_DrawLine(Xend, Yend  - Radius, Xend, Ystart + Radius, Color, Line_width, Line_style);
+    Paint_DrawLine(Xend - Radius, Yend, Xstart + Radius, Yend, Color, Line_width, Line_style);
+
+    //Draw a circle from(0, R) as a starting point
+    int16_t XCurrent, YCurrent;
+    XCurrent = 0;
+    YCurrent = Radius;
+
+    //Cumulative error,judge the next point of the logo
+    int16_t Esp = 3 - (Radius << 1 );
+
+    while (XCurrent <= YCurrent ) {
+        if ((Line_style == LINE_STYLE_SOLID) || (XCurrent % 2 == 0)) {
+            Paint_DrawPoint(Xend - Radius + XCurrent    , Yend - Radius + YCurrent  , Color, Line_width, DOT_STYLE_DFT);//1
+            Paint_DrawPoint(Xstart + Radius - XCurrent  , Yend - Radius + YCurrent  , Color, Line_width, DOT_STYLE_DFT);//2
+            Paint_DrawPoint(Xstart + Radius - YCurrent  , Yend - Radius + XCurrent  , Color, Line_width, DOT_STYLE_DFT);//3
+            Paint_DrawPoint(Xstart + Radius - YCurrent  , Ystart + Radius - XCurrent, Color, Line_width, DOT_STYLE_DFT);//4
+            Paint_DrawPoint(Xstart + Radius - XCurrent  , Ystart + Radius - YCurrent, Color, Line_width, DOT_STYLE_DFT);//5
+            Paint_DrawPoint(Xend - Radius + XCurrent    , Ystart + Radius - YCurrent, Color, Line_width, DOT_STYLE_DFT);//6
+            Paint_DrawPoint(Xend - Radius + YCurrent    , Ystart + Radius - XCurrent, Color, Line_width, DOT_STYLE_DFT);//7
+            Paint_DrawPoint(Xend - Radius + YCurrent    , Yend - Radius + XCurrent  , Color, Line_width, DOT_STYLE_DFT);//0
+        }
+        if (Esp < 0 )
+            Esp += 4 * XCurrent + 6;
+        else {
+            Esp += 10 + 4 * (XCurrent - YCurrent );
+            YCurrent --;
+        }
+        XCurrent ++;
+    }
+}
+/******************************************************************************
 function: Use the 8-point method to draw a circle of the
             specified size at the specified position->
 parameter:
