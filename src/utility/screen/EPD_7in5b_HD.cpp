@@ -1,5 +1,5 @@
 #include "EPD_7in5b_HD.h"
-#include "Debug.h"
+#include "../Debug.h"
 
 
 

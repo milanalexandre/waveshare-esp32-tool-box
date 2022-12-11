@@ -29,7 +29,7 @@
 #
 ******************************************************************************/
 #include "EPD_2in9_V2.h"
-#include "Debug.h"
+#include "../Debug.h"
 
 UBYTE _WF_PARTIAL_2IN9[159] =
 {

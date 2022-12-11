@@ -1,6 +1,6 @@
 /* Includes  ------------------------------------------------------------------*/
 #include "utility/Debug.h"
-#include "converteur.h"
+#include "utility/converteur.h"
 #include "GUI_Paint.h"
 
 
@@ -21,6 +21,12 @@ void setup()
   Paint_NewImage(BlackImage, WIDTH, HEIGHT, 0, WHITE);
   Paint_SelectImage(BlackImage);
   Paint_Clear(WHITE);
+
+
+  Paint_DrawString_EN(20,100,"Hello",&Font12,BLACK,WHITE);
+  Paint_DrawString_EN(20,120,"Hello",&Font16,WHITE,BLACK);
+  Paint_DrawString_EN(20,140,"Hello",&Font20,WHITE,BLACK);
+  Paint_DrawString_EN(20,160,"Hello",&Font24,WHITE,BLACK);
 
   Paint_DrawLine(10,10,40,10,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //X
   Paint_DrawLine(36,7 ,40,10,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //X
