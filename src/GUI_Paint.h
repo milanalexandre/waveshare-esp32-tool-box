@@ -216,6 +216,9 @@ void Paint_DrawTime(UWORD Xstart, UWORD Ystart, PAINT_TIME *pTime, sFONT* Font, 
 void Paint_DrawBitMap(const unsigned char* image_buffer);
 void Paint_DrawImage(const unsigned char *image_buffer, UWORD xStart, UWORD yStart, UWORD W_Image, UWORD H_Image); 
 
+//debug
+void Paint_Drawx_y();
+
 #endif
 
 

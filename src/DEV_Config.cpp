@@ -31,7 +31,6 @@
 
 void GPIO_Config(void)
 {
-    Serial.println("hello");
     pinMode(EPD_BUSY_PIN,  INPUT);
     pinMode(EPD_RST_PIN , OUTPUT);
     pinMode(EPD_DC_PIN  , OUTPUT);

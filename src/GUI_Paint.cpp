@@ -861,3 +861,20 @@ void Paint_DrawImage(const unsigned char *image_buffer, UWORD xStart, UWORD ySta
         }
     }
 }
+
+/******************************************************************************
+function:	Display X Y
+******************************************************************************/
+void Paint_Drawx_y()
+{
+    Paint_DrawLine(10,10,40,10,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //X
+    Paint_DrawLine(36,7 ,40,10,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //X
+    Paint_DrawLine(36,13,40,10,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //X
+    
+    Paint_DrawLine(10,10,10,40,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //Y
+    Paint_DrawLine(7 ,36,10,40,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //Y
+    Paint_DrawLine(13,36,10,40,BLACK,DOT_PIXEL_2X2,LINE_STYLE_SOLID);  //Y
+    Paint_DrawString_EN(0,0,"0",&Font12  ,BLACK,WHITE);//X
+    Paint_DrawString_EN(40,10,"X",&Font12,BLACK,WHITE);//X
+    Paint_DrawString_EN(10,40,"Y",&Font12,BLACK,WHITE);//Y
+}
