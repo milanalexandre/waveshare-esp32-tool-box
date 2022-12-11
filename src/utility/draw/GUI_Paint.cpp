@@ -491,9 +491,9 @@ void Paint_DrawChartLine(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
         //  point under 
         if (Xpoint % dencity == 0) {
             int sens = Ypoint < Ymin ? 1 : -1;
-            for (int i = Ypoint; i != Ymin; i+=sens ) {
+            for (int i = Ypoint; i != Ymin + sens; i+=sens ) {
                 if (i % dencity == 0) {
-                    Paint_DrawPoint(Xpoint, i, Color, Line_width, DOT_STYLE_DFT);
+                    Paint_DrawPoint(Xpoint, i, Color, DOT_PIXEL_1X1, DOT_STYLE_DFT);
                 }
             }
         }
