@@ -885,12 +885,27 @@ void Paint_DrawNum(UWORD Xpoint, UWORD Ypoint, int32_t Nummber,
         Debug("Paint_DisNum Input exceeds the normal display range\r\n");
         return;
     }
-
+    bool negative = false;
     //Converts a number to a string
+    //negative
+    if (Nummber<0){
+        negative = true;
+        Nummber= -Nummber;
+    }
+    // Nummber == 0
+    Num_Array[Num_Bit] = Nummber % 10 + '0';
+    Num_Bit++;
+    Nummber /= 10;
+
     while (Nummber) {
         Num_Array[Num_Bit] = Nummber % 10 + '0';
         Num_Bit++;
         Nummber /= 10;
+    }
+
+    if (negative) {
+        Num_Array[Num_Bit] = '-';
+        Num_Bit++;
     }
 
     //The string is inverted
