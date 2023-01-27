@@ -4,10 +4,29 @@ defmodule Convert do
     def hex_to_bin(n, i) do
         hex_to_bin(div(n, 2), i-1) <> "#{rem(n, 2)}"
     end
+    
+    def bin_to_hex(bin) do
+        String.split(bin, "\n")
+        |> Enum.reject(fn val -> val == "" end)
+        |> Enum.map(fn str -> 
+            str
+            |> String.split("")
+            |> Enum.reject(fn val -> val == "" end)
+            |> Enum.chunk_every(8)
+            |> Enum.map(fn val -> 
+                val = :erlang.binary_to_integer(Enum.join(val) , 2)
+                |> :erlang.integer_to_binary(16)
+                "0x#{String.pad_leading(val, 2, "0")}"
+            end)
+            |> Enum.join(", ")
+        end)
+        |> Enum.join(",\n")
+        |> IO.puts
+    end
 end
 
-IO.inspect(Convert.hex_to_bin(0x63))
-
+IO.inspect(Convert.hex_to_bin(0x63))    
+"0011111110000000" |> Convert.bin_to_hex
 
 a= [
 [0x00, 0x00, 0x01, 0x80, 0x00, 0x00, 0x00, 0x00, 0x03, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x03, 0xC0],
@@ -68,23 +87,4 @@ txt ="""
 0000000000000000
 0000000000000000
 """
-# defmodule Convert do
-#     def bin_to_hex(txt) do
-#         txt |> String.split("\n") |> Enum.filter(& &1!="") |> Enum.map(fn val -> 
-#             split(val)
-#         end) 
-#     end
-    
-#     def split(""), do: [nil]
-#     def split(val) do
-#         {x1, x2} = String.split_at(val, 8)
-#         [String.trim_leading(x1, "0") | split(x2) ] |> Enum.filter(& &1)
-#     end
-
-#     def bin(""), do: "00"
-#     def bin(txt) do
-        
-#     end
-
-# end
-# Convert.bin_to_hex(txt)
+Convert.bin_to_hex(txt)
