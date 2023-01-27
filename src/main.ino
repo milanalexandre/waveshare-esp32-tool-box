@@ -24,17 +24,62 @@ void setup()
       printf("Failed to apply for black memory...\r\n");
       while(1);
   }
-}
-
-/* The main loop -------------------------------------------------------------*/
-void loop()
-{
   page1();
   delay(5000);
   page2();
   delay(5000);
   page3();
   delay(5000);
+  
+  Paint_NewImage(BlackImage, WIDTH, HEIGHT, 270, WHITE);
+  Paint_SelectImage(BlackImage);
+  Paint_Clear(WHITE);
+
+  
+}
+
+/* The main loop -------------------------------------------------------------*/
+
+unsigned long time_now_s;
+PAINT_TIME sPaint_time;
+  int x   = 0;
+  int y   = 0;
+  int pvX = 0;
+  int pvY = 0;
+  int dX  = 1;
+  int dY  = 1;
+  int step  = 0;
+
+
+void loop()
+{
+  time_now_s = (millis()) / 1000;
+  sPaint_time.Day   = time_now_s / 60 / 60 / 24;
+  sPaint_time.Hour  = time_now_s / 60 / 60 / 24;
+  sPaint_time.Min   = time_now_s / 60 % 60;
+  sPaint_time.Sec   = time_now_s % 60;
+  step ++;
+  if (step == 5) {
+    step =0;
+    Paint_ClearWindows(pvX, pvY, pvX + Font20.Width * 7, pvY + Font20.Height, WHITE);
+
+    Paint_DrawTime(x, y, &sPaint_time, &Font20, WHITE, BLACK);
+    EPD_Display_Partial(BlackImage);
+    pvY = y;
+    pvX = x;
+  }
+  
+  x= x+dX;
+  y= y+dY;
+
+  if ((x +Font20.Width * 7)>HEIGHT || (x)<=0 ){ //296
+    dX = (dX==1)?-1:1;
+    x = x+dX+dX;
+  }
+  if ((y +Font20.Height)>WIDTH || (y)<=0){ //129
+    dY = (dY==1)?-1:1;
+    y = y+dY+dY;
+  }
 }
 
 
