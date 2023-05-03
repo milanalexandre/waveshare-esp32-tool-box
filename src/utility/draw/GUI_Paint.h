@@ -220,6 +220,10 @@ void Paint_DrawTime(UWORD Xstart, UWORD Ystart, PAINT_TIME *pTime, sFONT* Font, 
 void Paint_DrawBitMap(const unsigned char* image_buffer);
 void Paint_DrawImage(const unsigned char *image_buffer, UWORD xStart, UWORD yStart, UWORD W_Image, UWORD H_Image); 
 
+//Chart
+void Paint_Chart(int minX, int minY, int maxX, int maxY, int *array, int size, int color);
+
+
 //debug
 void Paint_Drawx_y();
 

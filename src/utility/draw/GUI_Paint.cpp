@@ -993,6 +993,65 @@ void Paint_DrawImage(const unsigned char *image_buffer, UWORD xStart, UWORD ySta
 }
 
 /******************************************************************************
+function: Draw a chart with numerical values
+parameters:
+    minX             : The minimum value of the X-axis
+    minY             : The minimum value of the Y-axis
+    maxX             : The maximum value of the X-axis
+    maxY             : The maximum value of the Y-axis
+    *array           : Pointer to an integer array representing the data to be displayed
+    size             : The size of the data array
+    color            : The color to draw the chart
+******************************************************************************/
+void Paint_Chart(int minX, int minY, int maxX, int maxY, int *array, int size, int color)
+{
+  int max = INT_MIN, min = INT_MAX;
+  for (int i = 0; i < size; i++)
+  {
+    if (array[i] > max)
+    {
+      max = array[i];
+    }
+    if (array[i] < min)
+    {
+      min = array[i];
+    }
+  }
+// print BackGround
+  Paint_DrawRectangle(minX, minY+1                   , maxX, map(1, 0, 4, minY, maxY), BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY, LINE_STYLE_DOTTED);
+  Paint_DrawRectangle(minX, map(1, 0, 2, minY, maxY) , maxX, map(3, 0, 4, minY, maxY), BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY, LINE_STYLE_DOTTED);
+  // X Y axe 
+  Paint_DrawRectangle(minX,maxY, maxX,minY, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY, LINE_STYLE_SOLID);
+  //clean 
+  Paint_DrawLine(minX+1, minY, maxX,minY, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+  Paint_DrawLine(maxX  , minY, maxX,maxY, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+  //txt
+  int txtX = maxX>minX ? maxX: minX;
+  Paint_DrawNum(txtX, ((maxY>minY ? minY: minY-12)), max                   ,&Font12, BLACK, WHITE);
+  Paint_DrawNum(txtX, map(1, 0, 4, minY, maxY)-6   , map(3, 0, 4, min, max),&Font12, BLACK, WHITE);
+  Paint_DrawNum(txtX, map(1, 0, 2, minY, maxY)-6   , map(1, 0, 2, min, max),&Font12, BLACK, WHITE);
+  Paint_DrawNum(txtX, map(3, 0, 4, minY, maxY)-6   , map(1, 0, 4, min, max),&Font12, BLACK, WHITE);
+  Paint_DrawNum(txtX, ((maxY>minY ? maxY-12: maxY)), min                   ,&Font12, BLACK, WHITE);
+  // min < 0
+  // Paint_DrawNum(txtX, map(1, 0, 2, minY, maxY)-6   , map(1, 0, 2, min, max),&Font12, BLACK, WHITE);
+
+  // print data
+  for (int i = 1; i < size; i++){
+    Paint_DrawChartLine(
+      map(i - 1, 0, size - 1, minX, maxX),
+      map(array[i - 1], min, max, maxY, minY),
+      map(i, 0, size - 1, minX, maxX),
+      map(array[i], min, max, maxY, minY),
+      maxY,
+      BLACK,
+      2,
+      DOT_PIXEL_1X1,
+      LINE_STYLE_SOLID
+    );
+  }
+}
+
+/******************************************************************************
 function:	Display X Y
 ******************************************************************************/
 void Paint_Drawx_y()

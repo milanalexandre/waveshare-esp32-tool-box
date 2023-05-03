@@ -8,6 +8,9 @@
 /* Entry point ----------------------------------------------------------------*/
 UBYTE *BlackImage;
 
+int data[] = {58, 280, 214, 372, 20, 287, 132, 150};
+int size = 8;
+
 void setup()
 { 
   #if USE_DEBUG
@@ -118,9 +121,7 @@ void page1()
   Paint_DrawChartLine(64, 190, 79,  190, 200, BLACK, 4, DOT_PIXEL_1X1, LINE_STYLE_DOTTED );
   Paint_DrawChartLine(79, 190, 128, 175, 200, BLACK, 3, DOT_PIXEL_1X1, LINE_STYLE_DOTTED );
 
-  chart(10, 210 , 100, 290, BLACK);
-
-
+  chart(10, 210, 100, 290, data, size, BLACK);
 
   EPD_Display_Base(BlackImage);
 }
@@ -134,7 +135,7 @@ void page2()
   #if USE_DEBUG
     Paint_Drawx_y();
   #endif
-  chart(20, 20 , 210, 110, BLACK);
+  chart(20, 20 , 210, 110, data, size, BLACK);
   EPD_Display_Base(BlackImage);
 }
 
