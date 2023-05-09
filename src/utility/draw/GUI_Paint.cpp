@@ -916,7 +916,7 @@ void Paint_DrawNum(UWORD Xpoint, UWORD Ypoint, int32_t Nummber,
     }
 
     //show
-    Paint_DrawString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Background, Color_Foreground);
+    Paint_DrawString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Foreground, Color_Background);
 }
 
 /******************************************************************************
@@ -1027,28 +1027,28 @@ void Paint_Chart(int minX, int minY, int maxX, int maxY, int *array, int size, i
   Paint_DrawLine(maxX  , minY, maxX,maxY, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
   //txt
   int txtX = maxX>minX ? maxX: minX;
-  Paint_DrawNum(txtX, ((maxY>minY ? minY: minY-12)), max                   ,&Font12, BLACK, WHITE);
-  Paint_DrawNum(txtX, map(1, 0, 4, minY, maxY)-6   , map(3, 0, 4, min, max),&Font12, BLACK, WHITE);
-  Paint_DrawNum(txtX, map(1, 0, 2, minY, maxY)-6   , map(1, 0, 2, min, max),&Font12, BLACK, WHITE);
-  Paint_DrawNum(txtX, map(3, 0, 4, minY, maxY)-6   , map(1, 0, 4, min, max),&Font12, BLACK, WHITE);
-  Paint_DrawNum(txtX, ((maxY>minY ? maxY-12: maxY)), min                   ,&Font12, BLACK, WHITE);
-  // min < 0
-  // Paint_DrawNum(txtX, map(1, 0, 2, minY, maxY)-6   , map(1, 0, 2, min, max),&Font12, BLACK, WHITE);
-
-  // print data
-  for (int i = 1; i < size; i++){
-    Paint_DrawChartLine(
-      map(i - 1, 0, size - 1, minX, maxX),
-      map(array[i - 1], min, max, maxY, minY),
-      map(i, 0, size - 1, minX, maxX),
-      map(array[i], min, max, maxY, minY),
-      maxY,
-      BLACK,
-      2,
-      DOT_PIXEL_1X1,
-      LINE_STYLE_SOLID
-    );
-  }
+  
+  Paint_DrawNum(txtX, ((maxY>minY ? minY: minY-12)), max                   ,&Font12, WHITE, BLACK);
+  Paint_DrawNum(txtX, ((maxY>minY ? maxY-12: maxY)), min                   ,&Font12, WHITE, BLACK);
+  if (min != max) {
+    Paint_DrawNum(txtX, map(1, 0, 4, minY, maxY)-6   , map(3, 0, 4, min, max),&Font12, WHITE, BLACK);
+    Paint_DrawNum(txtX, map(1, 0, 2, minY, maxY)-6   , map(1, 0, 2, min, max),&Font12, WHITE, BLACK);
+    Paint_DrawNum(txtX, map(3, 0, 4, minY, maxY)-6   , map(1, 0, 4, min, max),&Font12, WHITE, BLACK);
+    // print data
+    for (int i = 1; i < size; i++){
+        Paint_DrawChartLine(
+        map(i - 1, 0, size - 1, minX, maxX),
+        map(array[i - 1], min, max, maxY, minY),
+        map(i, 0, size - 1, minX, maxX),
+        map(array[i], min, max, maxY, minY),
+        maxY,
+        BLACK,
+        2,
+        DOT_PIXEL_1X1,
+        LINE_STYLE_SOLID
+        );
+    }
+  } 
 }
 
 /******************************************************************************

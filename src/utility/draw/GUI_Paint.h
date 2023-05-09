@@ -81,7 +81,6 @@
 #include "utility/Debug.h"
 #include "DEV_Config.h"
 #include "utility/fonts/fonts.h"
-#include "GUI_Chart.h"
 
 
 /**
