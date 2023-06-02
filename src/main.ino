@@ -2,6 +2,7 @@
 #include "utility/Debug.h"
 #include "utility/converteur.h"
 #include "utility/draw/GUI_Paint.h"
+#include "image.h"
 
 // #define USE_DEBUG 1  // set in platformio.ini
 
@@ -22,7 +23,7 @@ void setup()
   EPD_Init();
   EPD_Clear();
 
-    UWORD Imagesize = ((WIDTH % 8 == 0)? (WIDTH / 8 ): (WIDTH / 8 + 1)) * HEIGHT;
+  UWORD Imagesize = ((WIDTH % 8 == 0)? (WIDTH / 8 ): (WIDTH / 8 + 1)) * HEIGHT;
   if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
       printf("Failed to apply for black memory...\r\n");
       while(1);
@@ -33,7 +34,15 @@ void setup()
   delay(5000);
   page3();
   delay(5000);
-  
+  page4(0);
+  delay(1000);
+  page4(90);
+  delay(1000);
+  page4(180);
+  delay(1000);
+  page4(270);
+  delay(1000);
+
   Paint_NewImage(BlackImage, WIDTH, HEIGHT, 270, WHITE);
   Paint_SelectImage(BlackImage);
   Paint_Clear(WHITE);
@@ -153,7 +162,6 @@ void page3()
   Paint_DrawString_EN(70,70,"123",&Font24,BLACK,WHITE);
   Paint_SetRotate(ROTATE_90);
   Paint_DrawString_EN(70,70,"123",&Font24,BLACK,WHITE);
-
   Paint_DrawString_EN(20,30,"ABc 1",&Font16,WHITE,BLACK);
   Paint_SetMirroring(MIRROR_VERTICAL);
   Paint_DrawString_EN(20,30,"ABc 2",&Font16,WHITE,BLACK);
@@ -162,5 +170,15 @@ void page3()
   Paint_SetMirroring(MIRROR_ORIGIN);
   Paint_DrawString_EN(20,30,"ABc 4",&Font16,WHITE,BLACK);
 
+  EPD_Display_Base(BlackImage);
+}
+
+void page4(uint16_t Rotate) {
+  Paint_NewImage(BlackImage, WIDTH, HEIGHT, Rotate, WHITE);
+  Paint_SelectImage(BlackImage);
+  Paint_Clear(WHITE);
+  Paint_Drawx_y();
+  Paint_DrawImage(IMAGE_DATA, 4, 88, 120, 120);
+  
   EPD_Display_Base(BlackImage);
 }
