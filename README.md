@@ -1,34 +1,34 @@
 # Waveshare Screen Tools
+
 ## Introduction
 
-This project is a list of reusable objects for waveshare screen and for esp32 cards it is based on the code provided by [waveshare](https://www.waveshare.com/wiki/E-Paper_ESP32_Driver_Board). 
+This project provides a collection of reusable objects for Waveshare screens and ESP32 cards. It is based on the code provided by [Waveshare](https://www.waveshare.com/wiki/E-Paper_ESP32_Driver_Board) and has been tested with the: 
+ - `2in9_V2`
+ - `7in5b_HD`
 
-Tested with the 2in9_V2
-![](img/IMG.jpg)
-
-
+![Example Image](img/IMG.jpg)
 
 ## Installation
-This project uses [platformio](https://platformio.org/)
-Pin definition is done in [DEV_Config.h](./src/DEV_Config.h). 
 
+This project uses [PlatformIO](https://platformio.org/). Pin definitions can be found in [DEV_Config.h](./src/DEV_Config.h).
 
-|code|PIN|shield|
-| - | - | - |
-|BUSY |25| BUSY	
-|RST  |26| RST	
-|DC   |27| DC	
-|CS   |15| CS	
-|SCK  |13| SCK	
-|MOSI |16| DIN	
-|||VCC	
-|||GND	
+| Code | PIN | Shield  |
+| ---  | --- | ---     |
+| BUSY | 25  | BUSY    |
+| RST  | 26  | RST     |
+| DC   | 27  | DC      |
+| CS   | 15  | CS      |
+| SCK  | 13  | SCK     |
+| MOSI | 16  | DIN     |
+|      |     | VCC     |
+|      |     | GND     |
 
-To change the debug mode in you have to delete "-DUSE_DEBUG=1" platformio.ini
+To disable debug mode, remove the "-DUSE_DEBUG=1" line from platformio.ini.
 
-## functionality add
-- Fix for displaying negative numbers and 0 `Paint_DrawNum(0, 0, -1, &Font12, BLACK, WHITE)`
-- add diplay X Y axis `Paint_Drawx_y()`
-- add chart line `Paint_DrawChartLine(20, 185, 49,  190, 200, BLACK, 2, DOT_PIXEL_1X1, LINE_STYLE_SOLID )`
-- add LINE_STYLE parameter for retangle  `Paint_DrawRectangle(10, 10 , 50, 50, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY, LINE_STYLE_DOTTED)`
-- add rounded rectangle  `Paint_DrawRoundedRectangle(10, 10, 50, 50, 4, BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED)`
+## Functionality Added
+
+- Fixed an issue with displaying negative numbers and 0: `Paint_DrawNum(0, 0, -1, &Font12, BLACK, WHITE)`.
+- Added a function to display the X and Y axes: `Paint_Drawx_y()`.
+- Added a function to draw a chart line: `Paint_DrawChartLine(20, 185, 49, 190, 200, BLACK, 2, DOT_PIXEL_1X1, LINE_STYLE_SOLID)`.
+- Added a parameter to specify the line style for rectangles: `Paint_DrawRectangle(10, 10, 50, 50, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY, LINE_STYLE_DOTTED)`.
+- Added a function to draw rounded rectangles: `Paint_DrawRoundedRectangle(10, 10, 50, 50, 4, BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED)`.
