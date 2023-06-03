@@ -12,6 +12,7 @@ void EPD_7IN5B_HD_Init(void);
 void EPD_7IN5B_HD_Clear(void);
 void EPD_7IN5B_HD_ClearRed(void);
 void EPD_7IN5B_HD_ClearBlack(void);
+void EPD_7IN5B_HD_Display(const UBYTE *blackimage);
 void EPD_7IN5B_HD_Display(const UBYTE *blackimage, const UBYTE *ryimage);
 void EPD_7IN5B_HD_Sleep(void);
 

@@ -207,6 +207,10 @@ void EPD_7IN5B_HD_ClearBlack(void)
 function :	Sends the image buffer in RAM to e-Paper and displays
 parameter:
 ******************************************************************************/
+void EPD_7IN5B_HD_Display(const UBYTE *blackimage) {
+    EPD_7IN5B_HD_Display(blackimage,blackimage);
+}
+
 void EPD_7IN5B_HD_Display(const UBYTE *blackimage, const UBYTE *ryimage)
 {
     UDOUBLE i, j, width, height;

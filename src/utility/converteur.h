@@ -41,14 +41,13 @@
 #include "screen/EPD_2in9_V2.h"
 #include "screen/EPD_7in5b_HD.h"
 
-#define EPD_2in9  1
+// #define EPD_2in9  1
 // #define EPD_7in5B_HD 1 
 
 #if EPD_2in9
     #define WIDTH               EPD_2IN9_V2_WIDTH
     #define HEIGHT              EPD_2IN9_V2_HEIGHT
     #define EPD_Init            EPD_2IN9_V2_Init
-    #define EPD_Clear           EPD_2IN9_V2_Clear
     #define EPD_Clear           EPD_2IN9_V2_Clear
     #define EPD_Display_Base    EPD_2IN9_V2_Display_Base
     #define EPD_Display_Partial EPD_2IN9_V2_Display_Partial
@@ -60,7 +59,6 @@
     #define WIDTH               EPD_7IN5B_HD_WIDTH
     #define HEIGHT              EPD_7IN5B_HD_HEIGHT
     #define EPD_Init            EPD_7IN5B_HD_Init
-    #define EPD_Clear           EPD_7IN5B_HD_Clear
     #define EPD_Clear           EPD_7IN5B_HD_Clear
     #define EPD_Display_Base    EPD_7IN5B_HD_Display    
     // #define EPD_Display_Partial EPD_7IN5B_HD_Display_Partial

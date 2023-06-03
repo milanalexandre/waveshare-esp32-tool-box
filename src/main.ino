@@ -8,12 +8,16 @@
 
 /* Entry point ----------------------------------------------------------------*/
 UBYTE *BlackImage;
+#if EPD_7in5B_HD
+  UBYTE *RYImage;
+#endif
+
 
 int data[] = {58, 280, 214, 372, 20, 287, 132, 150};
 int size = 8;
 
 void setup()
-{ 
+{
   #if USE_DEBUG
     DEV_Module_Init();
   #else
@@ -28,6 +32,12 @@ void setup()
       printf("Failed to apply for black memory...\r\n");
       while(1);
   }
+  #if EPD_7in5B_HD
+    if ((RYImage = (UBYTE *)malloc(Imagesize)) == NULL) {
+      printf("Failed to apply for red memory...\r\n");
+      while(1);
+    }
+  #endif
   page1();
   delay(5000);
   page2();
@@ -62,7 +72,7 @@ PAINT_TIME sPaint_time;
   int dY  = 1;
   int step  = 0;
 
-
+#if EPD_2in9
 void loop()
 {
   time_now_s = (millis()) / 1000;
@@ -93,6 +103,11 @@ void loop()
     y = y+dY+dY;
   }
 }
+#endif
+
+#if EPD_7in5B_HD
+void loop(){}
+#endif
 
 
 void page1()
