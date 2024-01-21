@@ -4,16 +4,28 @@ defmodule Convert do
     def hex_to_bin(n, i) do
         hex_to_bin(div(n, 2), i-1) <> "#{rem(n, 2)}"
     end
-    
+    def convert_files() do
+        out_put = File.read!("tools/matrix")
+        |> bin_to_hex_txt()
+        out_put = "#include \"image.h\"\n#include <Arduino.h>\n\nconst unsigned char IMAGE_DATA [] PROGMEM = {" <> out_put <> "};"
+        File.write("tools/image.cpp" , out_put)
+        File.write("tools/image.h" , "extern const unsigned char IMAGE_DATA[];\n")
+    end
+
     def bin_to_hex(bin) do
-        String.split(bin, "\n")
+       IO.puts(bin_to_hex_txt(bin))
+    end
+
+    def bin_to_hex_txt(bin) do
+        String.replace(bin, " ", "")
+        |> String.split("\n")
         |> Enum.reject(fn val -> val == "" end)
-        |> Enum.map(fn str -> 
+        |> Enum.map(fn str ->
             str
             |> String.split("")
             |> Enum.reject(fn val -> val == "" end)
             |> Enum.chunk_every(8)
-            |> Enum.map(fn val -> 
+            |> Enum.map(fn val ->
                 val = :erlang.binary_to_integer(Enum.join(val) , 2)
                 |> :erlang.integer_to_binary(16)
                 "0x#{String.pad_leading(val, 2, "0")}"
@@ -21,11 +33,10 @@ defmodule Convert do
             |> Enum.join(", ")
         end)
         |> Enum.join(",\n")
-        |> IO.puts
     end
 end
 
-IO.inspect(Convert.hex_to_bin(0x63))    
+IO.inspect(Convert.hex_to_bin(0x63))
 "0011111110000000" |> Convert.bin_to_hex
 
 a= [

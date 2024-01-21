@@ -919,6 +919,28 @@ void Paint_DrawNum(UWORD Xpoint, UWORD Ypoint, int32_t Nummber,
     Paint_DrawString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Foreground, Color_Background);
 }
 
+
+
+void Paint_DrawFloat(UWORD Xpoint, UWORD Ypoint, float Number,
+                     sFONT* Font, UWORD Color_Foreground, UWORD Color_Background)
+{
+    int16_t Str_Bit = 0;
+    uint8_t Str_Array[ARRAY_LEN] = {0};
+    uint8_t *pStr = Str_Array;
+
+    if (Xpoint > Paint.Width || Ypoint > Paint.Height) {
+        Debug("Paint_DrawFloat Input exceeds the normal display range\r\n");
+        return;
+    }
+
+    // Converts a float number to a string
+    sprintf((char*)Str_Array, "%.2f", Number);
+
+    // Show
+    Paint_DrawString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Foreground, Color_Background);
+}
+
+
 /******************************************************************************
 function:	Display time
 parameter:
